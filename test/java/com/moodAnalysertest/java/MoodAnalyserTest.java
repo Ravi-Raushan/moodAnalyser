@@ -2,26 +2,39 @@ package com.moodAnalysertest.java;
 
 import com.moodAnalyser.java.MoodAnalyser;
 import com.moodAnalyser.java.MoodAnalyserException;
+import com.moodAnalyser.java.MoodAnalyserFactory;
 import org.junit.Assert;
 import org.junit.Test;
 
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
+
 public class MoodAnalyserTest {
     @Test
-    public void givenEmptyMoodShouldThrowMoodAnalyserException(){
-        MoodAnalyser moodAnalyser = new MoodAnalyser("");
+    public void givenMoodAnalyserClassNameShouldReturnMoodAnalyserObject(){
+        MoodAnalyser moodAnalyser = new MoodAnalyser();
         try {
-            String mood = moodAnalyser.analyseMood();
-        } catch (MoodAnalyserException e) {
-            Assert.assertEquals("EMPTY MOOD", e.getMessage());
+                MoodAnalyser anotherMoodAnalyserObject = MoodAnalyserFactory.createMoodAnalyserObject("com.moodAnalyser.java.MoodAnalyser");
+                Assert.assertEquals(true,  moodAnalyser.equals(anotherMoodAnalyserObject));
+        } catch (MoodAnalyserException | IllegalAccessException | InvocationTargetException | InstantiationException e) {
+            e.printStackTrace();
         }
     }
     @Test
-    public void givenNullMoodShouldThrowMoodAnalyserException(){
-        MoodAnalyser moodAnalyser = new MoodAnalyser(null);
+    public void givenClassNameImproperShouldThrowMoodAnalyserException() {
         try {
-            String mood = moodAnalyser.analyseMood();
-        } catch (MoodAnalyserException e) {
-            Assert.assertEquals("NULL MOOD", e.getMessage());
+            MoodAnalyser moodAnalyser = MoodAnalyserFactory.createMoodAnalyserObject("com.moodAnalyser.java.MoodAnalyse");
+        } catch (MoodAnalyserException | IllegalAccessException | InvocationTargetException | InstantiationException e) {
+            Assert.assertEquals("NO_SUCH_CLASS_ERROR", e.getMessage());
         }
     }
+    @Test
+    public void givenImproperConstructorParameterShouldThrowMoodAnalyserException() {
+        try {
+            MoodAnalyser moodAnalyser = MoodAnalyserFactory.createMoodAnalyserObject("com.moodAnalyser.java.MoodAnalyser");
+        } catch (MoodAnalyserException | IllegalAccessException | InvocationTargetException | InstantiationException e) {
+            Assert.assertEquals("NO_SUCH_METHOD_ERROR", e.getMessage());
+        }
+    }
+
 }
