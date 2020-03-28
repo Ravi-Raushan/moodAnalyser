@@ -2,7 +2,7 @@ package com.moodAnalyser.java;
 
 public class MoodAnalyser {
     String message;
-    public  MoodAnalyser(){
+    public MoodAnalyser(){
 
     }
     public MoodAnalyser(String message){
@@ -18,5 +18,10 @@ public class MoodAnalyser {
           }catch(NullPointerException e){
              throw  new MoodAnalyserException(MoodAnalyserException.ExceptionType.ENTERED_NULL,"NULL MOOD");
         }
+    }
+    public boolean equals(Object another){
+        if (this.message.equals(((MoodAnalyser)another).message))
+            return true;
+        return false;
     }
 }
