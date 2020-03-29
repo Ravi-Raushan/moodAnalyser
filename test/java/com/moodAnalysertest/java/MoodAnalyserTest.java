@@ -5,8 +5,6 @@ import com.moodAnalyser.java.MoodAnalyserException;
 import com.moodAnalyser.java.MoodAnalyserFactory;
 import org.junit.Assert;
 import org.junit.Test;
-
-import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 
 public class MoodAnalyserTest {
@@ -15,7 +13,7 @@ public class MoodAnalyserTest {
         MoodAnalyser moodAnalyser = new MoodAnalyser();
         try {
                 MoodAnalyser anotherMoodAnalyserObject = MoodAnalyserFactory.createMoodAnalyserObject("com.moodAnalyser.java.MoodAnalyser");
-                Assert.assertEquals(true,  moodAnalyser.equals(anotherMoodAnalyserObject));
+                Assert.assertEquals(true,  moodAnalyser.isEqualsObject(anotherMoodAnalyserObject));
         } catch (MoodAnalyserException | IllegalAccessException | InvocationTargetException | InstantiationException e) {
             e.printStackTrace();
         }
@@ -23,7 +21,8 @@ public class MoodAnalyserTest {
     @Test
     public void givenClassNameImproperShouldThrowMoodAnalyserException() {
         try {
-            MoodAnalyser moodAnalyser = MoodAnalyserFactory.createMoodAnalyserObject("com.moodAnalyser.java.MoodAnalyse");
+             MoodAnalyserFactory.createMoodAnalyserObject("com.moodAnalyser.java.MindAnalyser");
+             System.out.println(" not exception");
         } catch (MoodAnalyserException | IllegalAccessException | InvocationTargetException | InstantiationException e) {
             Assert.assertEquals("NO_SUCH_CLASS_ERROR", e.getMessage());
         }
@@ -31,10 +30,9 @@ public class MoodAnalyserTest {
     @Test
     public void givenImproperConstructorParameterShouldThrowMoodAnalyserException() {
         try {
-            MoodAnalyser moodAnalyser = MoodAnalyserFactory.createMoodAnalyserObject("com.moodAnalyser.java.MoodAnalyser");
+            MoodAnalyser moodAnalyser = MoodAnalyserFactory.createMoodAnalyserObject("com.moodAnalyser.java.MoodAnalyser",Integer.class);
         } catch (MoodAnalyserException | IllegalAccessException | InvocationTargetException | InstantiationException e) {
             Assert.assertEquals("NO_SUCH_METHOD_ERROR", e.getMessage());
         }
     }
-
 }
