@@ -3,7 +3,7 @@ package com.moodAnalyser.java;
 public class MoodAnalyser {
     String message;
     public MoodAnalyser(){
-
+         message = "happy";
     }
     public MoodAnalyser(String message){
         this.message=message;
@@ -19,9 +19,9 @@ public class MoodAnalyser {
              throw  new MoodAnalyserException(MoodAnalyserException.ExceptionType.ENTERED_NULL,"NULL MOOD");
         }
     }
-    public boolean equals(Object another){
-        if (this.message.equals(((MoodAnalyser)another).message))
-            return true;
-        return false;
-    }
+   public boolean isEqualsObject(Object another){
+       if (this.getClass().equals(another.getClass()))
+           return true;
+       return false;
+   }
 }
