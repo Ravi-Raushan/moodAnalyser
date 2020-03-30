@@ -3,7 +3,6 @@ package com.moodAnalyser.java;
 public class MoodAnalyser {
     String message;
     public MoodAnalyser(){
-         message = "happy";
     }
     public MoodAnalyser(String message){
         this.message=message;

@@ -1,8 +1,8 @@
 package com.moodAnalyser.java;
 
 import java.lang.reflect.Constructor;
+import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 
 public class MoodAnalyserReflector {
     public static Constructor<?> getConstructor(Class<?> ...param) throws MoodAnalyserException{
@@ -35,6 +35,17 @@ public class MoodAnalyserReflector {
             throw new MoodAnalyserException(MoodAnalyserException.ExceptionType.NO_ACCESS, "NO_ACCESS");
         } catch (InvocationTargetException e) {
             throw new MoodAnalyserException(MoodAnalyserException.ExceptionType.METHOD_INVOCATION_ISSUE, "METHOD_INVOCATION_ISSUE");
+        }
+    }
+    public static void setFieldValue(Object obj, String fieldName, String fieldValue) throws MoodAnalyserException {
+        try {
+            Field field = obj.getClass().getDeclaredField(fieldName);
+            field.setAccessible(true);
+            field.set(obj, fieldValue);
+        } catch (NoSuchFieldException e) {
+            throw new MoodAnalyserException(MoodAnalyserException.ExceptionType.NO_SUCH_FIELD, "NO_SUCH_FIELD");
+        } catch (IllegalAccessException e) {
+            throw new MoodAnalyserException(MoodAnalyserException.ExceptionType.NO_ACCESS, "NO_ACCESS");
         }
     }
 }
