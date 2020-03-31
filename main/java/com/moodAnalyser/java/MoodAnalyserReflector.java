@@ -3,7 +3,7 @@ package com.moodAnalyser.java;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 
-public class MoodAnalyserFactory {
+public class MoodAnalyserReflector {
     public static Constructor<?> getConstructor(Class<?> ...param) throws MoodAnalyserException{
         try{
             Class<?> moodAnalyserClass = Class.forName("com.moodAnalyser.java.MoodAnalyser");
